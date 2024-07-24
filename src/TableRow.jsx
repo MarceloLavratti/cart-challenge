@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const TableRow = () => {
+const TableRow = ({ onValueChange }) => {
+
+  const [quantity, setQuantity] = useState(1)
+  const [isEmpty, setIsEmpty] = useState(true)
+
+  const handleMinusBtn = () => {
+    let counter = Math.max(quantity - 1, 0)
+    setQuantity(counter)
+
+    if(counter <= 0){
+      setIsEmpty(true)
+      onValueChange(false)
+    }    
+  }
+
+  const handlePlusBtn = () => {
+    let counter = quantity + 1
+    setQuantity(counter)
+  }
+
+  const handleRemoveBtn = () => {
+    onValueChange(false)
+  }
+
+  const handlePrice = () => {
+
+  }
+
   return (
     <tr>
       <td>
@@ -15,23 +42,23 @@ const TableRow = () => {
       <td>R$ 120</td>
       <td>
         <div className='qty'>
-          <button>
+          <button onClick={handleMinusBtn}>
             <i className='bx bx-minus'></i>
           </button>
-          <span>2</span>
-          <button>
+          <span>{quantity}</span>
+          <button onClick={handlePlusBtn}>
             <i className='bx bx-plus'></i>
           </button>
         </div>
       </td>
       <td>R$ 240</td>
       <td>
-        <button className='remove'>
+        <button className='remove' onClick={handleRemoveBtn}>
           <i className='bx bx-x'></i>
         </button>
       </td>
-    </tr>
+    </tr >
   );
 };
 
-export default TableRow;
+export default TableRow

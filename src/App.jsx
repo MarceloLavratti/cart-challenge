@@ -20,20 +20,19 @@ import PageTitle from './layout/PageTitle';
 import Summary from './Summary';
 import TableRow from './TableRow';
 
-function App() {
+const App = () => {
+  const [productDetails, setProductDetails] = useState({ isEmpty: true, subTotal: 240 })
 
-  const [isEmpty, setIsEmpty] = useState(true)
-  
-  const toggleVisibility = () => {
-    setIsEmpty(false)
+  const handleProductDetailsChange = (details) => {
+    setProductDetails(details)
   }
-
+  
   return (
     <>
       <PageHeader />
       <main>
         <PageTitle data={'Seu carrinho'} />
-        { isEmpty ? (
+        { productDetails.isEmpty ? (
           <div className='content'>
             <section>
               <table>
@@ -47,12 +46,12 @@ function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  <TableRow onValueChange={toggleVisibility}/>
+                  <TableRow onDetailsChange={handleProductDetailsChange} />
                 </tbody>
               </table>
             </section>
             <aside>
-              <Summary />
+              <Summary productDetails={productDetails}/>
             </aside>
           </div>
         ) : (

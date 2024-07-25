@@ -1,45 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const TableRow = ({ onValueChange }) => {
+const TableRow = ({ onDetailsChange }) => {
 
+  const [name, setName] = useState('Óculos')
   const [quantity, setQuantity] = useState(1)
-  const [isEmpty, setIsEmpty] = useState(true)
+  const [price, setPrice] = useState(240)
+  const [totalPrice, setTotalPrice] = useState(price)
 
   const handleMinusBtn = () => {
-    let counter = Math.max(quantity - 1, 0)
-    setQuantity(counter)
+    const counterQty = Math.max(quantity - 1, 0)
+    const counterPrice = Math.min(counterQty * price)
 
-    if(counter <= 0){
-      setIsEmpty(true)
-      onValueChange(false)
-    }    
+    setQuantity(counterQty)
+    setTotalPrice(counterPrice)
+
+    counterQty <= 0
+      ? onDetailsChange({ isEmpty: false })
+      : onDetailsChange({ isEmpty: true, subTotal: counterPrice })
+
   }
 
   const handlePlusBtn = () => {
-    let counter = quantity + 1
-    setQuantity(counter)
+    const counterQty = quantity + 1
+    const counterPrice = counterQty * price
+    setQuantity(counterQty)
+    setTotalPrice(counterPrice)
+    onDetailsChange({ isEmpty: true, subTotal: counterPrice })
   }
 
   const handleRemoveBtn = () => {
-    onValueChange(false)
-  }
-
-  const handlePrice = () => {
-
+    toggleVisibility(false)
   }
 
   return (
     <tr>
       <td>
         <div className='product'>
-          <img src='https://picsum.photos/100/120' alt='' />
+          <img src='https://picsum.photos/100/120' alt=''/>
           <div className='info'>
-            <div className='name'>Nome do produto</div>
+            <div className='name'>{name}</div>
             <div className='category'>Categoria</div>
           </div>
         </div>
       </td>
-      <td>R$ 120</td>
+      <td>R$ {price}</td>
       <td>
         <div className='qty'>
           <button onClick={handleMinusBtn}>
@@ -51,7 +55,7 @@ const TableRow = ({ onValueChange }) => {
           </button>
         </div>
       </td>
-      <td>R$ 240</td>
+      <td>{totalPrice}</td>
       <td>
         <button className='remove' onClick={handleRemoveBtn}>
           <i className='bx bx-x'></i>

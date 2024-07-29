@@ -1,42 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
-const Summary = ({ productDetails }) => {
+const Summary = ({ cartTotal }) => {
 
-  const [isVisible, setIsVisible] = useState(false)
-  const [isValid, setIsValid] = useState(false)
-  const [isInvalidCoupon, setIsInvalidCoupon] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const [inputValue, setInputValue] = useState('')
   const [total, setTotal] = useState('')
-  const discountCoupon = ['123', 20]  
-  
-  
+  const coupon = ['123', 50]
 
   const handleDiscountBtn = () => {
-
-    setIsVisible(true)
+    setIsVisible(false)
   }
 
-  const handleCouponInput = (e) => {
-    
+  const handleInputChange = (e) => {
     setInputValue(e.target.value)
   }
 
-  const handleApplyCouponBtn = () => {
-
-    if (inputValue === discountCoupon[0]) {
-      const priceWithCoupon = Math.max(productDetails.subTotal - discountCoupon[1])
-      setIsValid(true)
+  const handleApplyCoupon = () => {
+    if (inputValue === coupon[0]) {
+      const priceWithCoupon = cartTotal - coupon[1]
       setTotal(priceWithCoupon)
+      alert('Cupom aplicado!')
+      setInputValue('')
     } else {
-      setIsValid(false)
-      setIsInvalidCoupon(true)
-      setTotal(productDetails.subTotal)
-    }    
+      setTotal(cartTotal)
+      alert('Cupom inválido!')
+    }
   }
 
   useEffect(() => {
-    setTotal(productDetails.subTotal)
-  }, [productDetails.subTotal]);
+    setTotal(cartTotal)
+  }, [cartTotal]);
 
   return (
     <>
@@ -45,36 +38,29 @@ const Summary = ({ productDetails }) => {
         <div className='info'>
           <div>
             <span>Sub-total</span>
-            <span>R$ {productDetails.subTotal}</span>
+            <span>R$ {total}</span>
           </div>
           <div>
             <span>Frete</span>
             <span>Gratuito</span>
           </div>
           <div>
-
             {isVisible ? (
-              <div>
-                <input
-                  placeholder='Insira seu cupom'
-                  value={inputValue}
-                  onChange={handleCouponInput}
-                />
-                <button onClick={handleApplyCouponBtn}>Ok</button>
-                {isValid ? (
-                  <span>Cupom validado!</span>
-                ) : isInvalidCoupon ? (
-                  <span>Cupom inválido!</span>
-                ) : (
-                  <span></span>
-                )}
-              </div>
-            ) : (
               <button onClick={handleDiscountBtn}>
                 Adicionar cupom de desconto
                 <i className='bx bx-right-arrow-alt'></i>
               </button>
-            )}
+            ) : (
+              <div>
+                <input
+                  type='text'
+                  placeholder='Digite seu cupom aqui'
+                  value={inputValue}
+                  onChange={handleInputChange}
+                />
+                <button onClick={handleApplyCoupon}>Ok</button>
+              </div>
+            )}        
           </div>
         </div>
         <footer>

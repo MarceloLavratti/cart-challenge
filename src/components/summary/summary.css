@@ -1,0 +1,20 @@
+#ok-btn {
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    height: 30px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    margin-top: 5px;
+
+    &:hover {        
+        background: #3bc55b;
+    }
+}
+
+.input-cpn {
+    width: 200px;
+    height: 25px;
+    font-size: 1rem;
+}

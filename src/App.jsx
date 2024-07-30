@@ -16,14 +16,11 @@ import './styles.scss';
 
 import PageHeader from './layout/PageHeader';
 import PageTitle from './layout/PageTitle';
-import Summary from './Summary';
-import TableRow from './TableRow';
-import { api } from './provider'
+import Summary from './components/summary/Summary';
+import TableRow from './components/tableRow/TableRow';
 import { useState, useEffect } from 'react';
-
-function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min) + min)
-}
+import { fetchCart, addItemToCart, removeItemFromCart, updateCartItem } from './services/cartServices';
+import { randomNumber } from './utils/randomNumber';
 
 function App() {
 
@@ -37,25 +34,19 @@ function App() {
   const [cart, setCart] = useState([])
 
   const fetchData = () => {
-    api.get('/').then((response) => setCart((response.data)))
+    fetchCart().then((response) => setCart((response.data)))
   }
-
-  useEffect(() => {
-    fetchData()
-  }, []);
 
   const handleAddItem = () => {
     // inserção
-    api.post('/', productObject).then((response) => {
-      console.log(response)
+    addItemToCart(productObject).then((response) => {
       fetchData()
     })
   }
 
   const handleRemoveItem = (item) => {
     // remoção
-    api.delete(`/${item.id}`).then((response) => {
-      console.log(response)
+    removeItemFromCart(item.id).then((response) => {
       fetchData()
     })
   }
@@ -73,8 +64,7 @@ function App() {
       newQuantity += 1
     }
     const newData = { ...item, quantity: newQuantity }
-    //delete newData._id
-    api.put(`/${item.id}`, newData).then((response) => {
+    updateCartItem(item.id, newData).then((response) => {
       fetchData()
     })
   }
@@ -88,6 +78,10 @@ function App() {
   }
 
   const cartTotal = getTotal()
+
+  useEffect(() => {
+    fetchData()
+  }, []);
 
   return (
     <>
@@ -110,7 +104,7 @@ function App() {
               <tbody>
                 {cart.map(item =>
                   <TableRow
-                    key={item._id}
+                    key={item.id}
                     data={item}
                     handleRemoveItem={handleRemoveItem}
                     handleUpdateItem={handleUpdateItem}

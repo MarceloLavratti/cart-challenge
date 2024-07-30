@@ -1,6 +1,8 @@
 import React from 'react';
+import { formattedPriceBRL, formattedTotal } from '../../utils/priceFormatter';
 
 const TableRow = ({ data, handleRemoveItem, handleUpdateItem }) => {
+
   return (
     <tr>
       <td>
@@ -12,19 +14,19 @@ const TableRow = ({ data, handleRemoveItem, handleUpdateItem }) => {
           </div>
         </div>
       </td>
-      <td>R$ {data.price}</td>
+      <td>{formattedPriceBRL(data.price)}</td>
       <td>
         <div className='qty'>
-          <button onClick={() => {handleUpdateItem(data, 'decrease')}}>
+          <button onClick={() => { handleUpdateItem(data, 'decrease') }}>
             <i className='bx bx-minus'></i>
           </button>
           <span>{data.quantity}</span>
-          <button onClick={() => {handleUpdateItem(data, 'increase')}}>
+          <button onClick={() => { handleUpdateItem(data, 'increase') }}>
             <i className='bx bx-plus'></i>
           </button>
         </div>
       </td>
-      <td>R$ {data.price * data.quantity}.00</td>
+      <td>{formattedTotal(data.price, data.quantity)}</td>
       <td>
         <button className='remove' onClick={() => {
           handleRemoveItem(data)

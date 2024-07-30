@@ -1,30 +1,18 @@
-# fernandev
+Solução de um desafio de carrinho de compras em React, com as seguintes instruções:
 
-**Se você curtir esse conteúdo, deixa uma STAR aí nesse repo,** porque isso me motiva a trazer mais conteúdos desse gênero.
+DESAFIO - Shopping Cart:
 
-## React Interview Challenge #06
+Você deve desenvolver um carrinho de compras funcional.
+Funcionalidades que esperamos que você desenvolva:
 
-E aí dev, tudo bem? Trouxe pra você mais um desafio de entrevista para que você possa treinar em casa e aprimorar suas habilidades.
+todo - fazer um placeholder para quando não houver itens no carrinho
+todo - inserção de novos produtos no carrinho
+todo - remoção de produtos já inseridos
+todo - alteração de quantidade de cada item 
+todo - cálculo do preço total dos itens inseridos
 
-Nosso desafio da vez é criar um carrinho de compras funcional.
+todo - FUNCIONALIDADE EXTRA: aplicação de cupom de desconto
 
-Siga as instruções dentro do arquivo App.jsx e bora codar!
+Este projeto foi feito como um desafio proposto por fernandev.
 
-## Objetivos
-
-Criar um carrinho de compras totalmente interativo. O usuário deve poder:
-
-- adicionar um novo produto
-- remover um produto
-- alterar a quantidade
-- a quantidade não pode ser menor que 01
-- calcular soma total do preço dos produtos inseridos de acordo com suas quantidades
-- FUNCIONALIDADE EXTRA: aplicação de cupom de desconto
-
-## Branch com solução
-
-Subirei uma branch de nome `solution` com a minha resolução do desafio para que você possa utilizar para estudos ou queira comparar com a sua solução.
-
-## Resolução do desafio
-
-em breve...
+![image](https://github.com/user-attachments/assets/b6b02b60-12dc-4edf-969e-d1549159ebed)
